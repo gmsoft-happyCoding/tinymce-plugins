@@ -1,0 +1,32 @@
+{
+  "name": "gmsoft-tinymce-plugin",
+  "version": "1.0.0",
+  "description": "大家软件tinymce编辑器插件库",
+  "engines": {
+    "node": ">=14",
+    "pnpm": ">=8"
+  },
+  "scripts": {
+    "build": "pnpm -r --filter='./packages/**' run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dva-core": "^2.0.4",
+    "dva-loading": "^3.0.24",
+    "lodash": "^4.17.21",
+    "react": "18.2.0",
+    "redux": "4.2.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/lodash": "^4.14.202",
+    "@types/react": "^18.2.45",
+    "rollup": "^4.18.1",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.3"
+  }
+}
