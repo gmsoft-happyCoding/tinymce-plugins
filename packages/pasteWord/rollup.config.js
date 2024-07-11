@@ -8,12 +8,12 @@ module.exports = {
   input: "index.ts",
   output: [
     {
-      file: "dist/pasteword/index.js",
+      file: "dist/pasteword/plugin.js",
       format: "iife",
       sourcemap: true,
     },
     {
-      file: "dist/pasteword/index.mini.js",
+      file: "dist/pasteword/plugin.min.js",
       format: "iife",
       sourcemap: true,
       plugins: [terser()],

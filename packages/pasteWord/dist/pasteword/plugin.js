@@ -67,4 +67,4 @@
     pasteWordPlugin();
 
 })();
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=plugin.js.map
