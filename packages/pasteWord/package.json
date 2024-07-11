@@ -1,6 +1,6 @@
 {
-  "name": "@gmsoft-mini-app/state-container",
-  "version": "1.0.1",
+  "name": "gmsoft-tinymce-plugin/pasteWord",
+  "version": "1.0.0",
   "description": "",
   "publishConfig": {
     "registry": "http://192.168.2.10:8081/repository/npm.hosted/"
@@ -13,10 +13,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "dva-core": "^2.0.4",
-    "dva-loading": "^3.0.24",
-    "redux": "^4.2.1"
-  }
+  "license": "ISC"
 }

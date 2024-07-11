@@ -1,6 +1,6 @@
-const commonjs = require("@rollup/plugin-commonjs");
-
 const typescript = require("@rollup/plugin-typescript");
+
+const terser = require("@rollup/plugin-terser");
 
 const babel = require("@rollup/plugin-babel");
 
@@ -8,16 +8,16 @@ module.exports = {
   input: "index.ts",
   output: [
     {
-      file: "dist/index.js",
-      format: "cjs",
+      file: "dist/pasteword/index.js",
+      format: "iife",
       sourcemap: true,
     },
     {
-      file: "dist/index.esm.js",
-      format: "es",
+      file: "dist/pasteword/index.mini.js",
+      format: "iife",
       sourcemap: true,
+      plugins: [terser()],
     },
   ],
-  external: ["dva-core", "dva-loading", "react", "redux", "react-redux"],
-  plugins: [commonjs(), typescript(), babel({ babelHelpers: "bundled" })],
+  plugins: [typescript(), babel({ babelHelpers: "bundled" })],
 };
