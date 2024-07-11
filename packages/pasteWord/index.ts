@@ -34,38 +34,43 @@ const hexToBase64 = (hexString) =>
       .join("")
   );
 
-const getImagesHexSource = (node: any, rtfData?: string): any => {
-  // 如果某张图片太大，会报Maximum call stack size exceeded，目前还不知道如何解决
+const getImagesHexSource = (node: any, rtfData: string): any => {
+  try {
+    // 如果某张图片太大，会报Maximum call stack size exceeded，目前还不知道如何解决
+    const imageMatch = rtfData.match(regexPicture);
 
-  const imageMatch = rtfData?.match(regexPicture);
+    const image = imageMatch ? imageMatch[0] : "";
 
-  const image = imageMatch ? imageMatch[0] : "";
+    if (!rtfData || (imageMatch && imageMatch?.index && imageMatch.index < 0)) {
+      node.attr("src", "");
+      node.attr("alt", "图片加载失败");
+      return;
+    }
 
-  if (!rtfData || (imageMatch && imageMatch?.index && imageMatch.index < 0)) {
-    node.attr("src", "");
-    node.attr("alt", "图片加载失败");
-    return;
+    // 如果找到了就将rtf的内容修改为匹配剩下的rtf内容
+    const sliceRtfData = rtfData?.slice(
+      (imageMatch?.index || 0) + image.length
+    );
+
+    let imageType = "";
+
+    if (image.includes("pngblip")) {
+      imageType = "image/png";
+    } else if (image.includes("jpegblip")) {
+      imageType = "image/jpeg";
+    }
+
+    if (imageType) {
+      return {
+        hex: image.replace(regexPictureHeader, "").replace(/[^\da-fA-F]/g, ""),
+        type: imageType,
+      };
+    }
+
+    return getImagesHexSource(node, sliceRtfData);
+  } catch (error) {
+    return undefined;
   }
-
-  // 如果找到了就将rtf的内容修改为匹配剩下的rtf内容
-  const sliceRtfData = rtfData?.slice((imageMatch?.index || 0) + image.length);
-
-  let imageType = "";
-
-  if (image.includes("pngblip")) {
-    imageType = "image/png";
-  } else if (image.includes("jpegblip")) {
-    imageType = "image/jpeg";
-  }
-
-  if (imageType) {
-    return {
-      hex: image.replace(regexPictureHeader, "").replace(/[^\da-fA-F]/g, ""),
-      type: imageType,
-    };
-  }
-
-  return getImagesHexSource(node, sliceRtfData);
 };
 
 const pasteWordPlugin = () => {
